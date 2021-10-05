@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {createContext} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import {observer} from "mobx-react-lite";
+import UserStore from "./store/user";
+import PageStore from "./store/page";
+import MainPage from "./pages/MainPage";
+import Web3 from "web3";
+import Web3Store from "./store/web3";
+
+export const Context = createContext(null)
+
+const App = observer(() => {
+
+    return (
+        <Context.Provider value={{
+            user: new UserStore(),
+            page: new PageStore(),
+            web: new Web3Store(),
+        }} >
+            <MainPage />
+        </Context.Provider>
+
+    );
+});
 
 export default App;
+
